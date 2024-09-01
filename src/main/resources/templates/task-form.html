@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h1>Create New Task</h1>
+
+    <form th:action="@{/tasks}" method="post" th:object="${task}">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" id="status" th:field="*{status}">
+                <option th:each="statusValue : ${T(me.aceking.TaskStatus).values()}"
+                        th:value="${statusValue}" th:text="${statusValue}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <select class="form-control" id="priority" th:field="*{priority}">
+                <option th:each="priorityValue : ${T(me.aceking.TaskPriority).values()}"
+                        th:value="${priorityValue}" th:text="${priorityValue}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="dueDate">Due Date</label>
+            <input type="datetime-local" class="form-control" id="dueDate" th:field="*{dueDate}">
+        </div>
+
+</div>
+<button type="submit" class="btn btn-primary">Create Task</button>
+</form>
+</div>
+
+</body>
+</html>
