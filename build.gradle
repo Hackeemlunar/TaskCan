@@ -61,9 +61,10 @@ tasks.named('asciidoctor') {
 	dependsOn test
 }
 
+/**
 tasks.register('buildTailwind', Exec) {
 	workingDir = project.projectDir
 	commandLine('npx', 'tailwindcss', '-i', './src/main/resources/static/css/inputs.css', '-o', './src/main/resources/static/css/style.css')
 }
 
-processResources.dependsOn buildTailwind // Make sure Tailwind builds before resources are processed
+processResources.dependsOn buildTailwind // Make sure Tailwind builds before resources are processed */
