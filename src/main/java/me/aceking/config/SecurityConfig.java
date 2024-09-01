@@ -23,8 +23,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
             authorizationManagerRequestMatcherRegistry
                     .requestMatchers("/login", "/register").permitAll()
-                    .requestMatchers("/admin").hasRole("ADMIN")
-                    .requestMatchers("/**").hasRole("USER")
+                    .requestMatchers("/v1/admins").hasRole("ADMIN")
+                    .requestMatchers("/v1/users/").hasRole("USER")
                     .anyRequest().authenticated();
         });
         http.formLogin(Customizer.withDefaults());
@@ -46,13 +46,6 @@ public class SecurityConfig {
                 .roles("ADMIN", "USER")
                 .build();
         return new InMemoryUserDetailsManager(user, admin);
-    }
-
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web. ignoring()
-                // Spring Security should completely ignore URLs starting with / resources/
-                .requestMatchers("/ resources/**");
     }
 
     @Bean
