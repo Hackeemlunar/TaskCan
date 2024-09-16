@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit Task</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/main.css}">
 </head>
-<body>
-<div class="container mt-4">
-    <h1>Edit Task</h1>
+<body class="bg-gray-900 text-white font-sans">
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Edit Task</h1>
     <form th:action="@{/tasks/{id}/edit(id=${task.id})}" th:object="${task}" method="post">
-        <div class="form-group">
-            <label for="title">Title:</label>
-            <input type="text" class="form-control" id="title" name="title" th:field="*{title}">
+        <div class="mb-4">
+            <label for="title" class="block text-gray-300 text-sm font-bold mb-2">Title:</label>
+            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+            leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" th:field="*{title}">
         </div>
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description" th:field="*{description}"></textarea>
+        <div class="mb-4">
+            <label for="description" class="block text-gray-300 text-sm font-bold mb-2">Description:</label>
+            <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="description" name="description" th:field="*{description}">
+            </textarea>
         </div>
-        <div class="form-group">
-            <label for="dueDate">Due Date:</label>
-            <input type="datetime-local" class="form-control" id="dueDate" name="dueDate" th:field="*{dueDate}">
+        <div class="mb-4">
+            <label for="dueDate" class="block text-gray-300 text-sm font-bold mb-2">Due Date:</label>
+            <input type="datetime-local" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+             leading-tight focus:outline-none focus:shadow-outline" id="dueDate" name="dueDate" th:field="*{dueDate}">
         </div>
-        <div class="form-group">
-            <label for="priority">Priority:</label>
-            <select class="form-control" id="priority" name="priority">
+        <div class="mb-4">
+            <label for="priority" class="block text-gray-300 text-sm font-bold mb-2">Priority:</label>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="priority" name="priority">
                 <option th:each="p : ${T(me.aceking.tasks.TaskPriority).values()}"
                         th:value="${p}"
                         th:text="${p.name().toLowerCase()}"
@@ -31,9 +36,10 @@
                 </option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="status">Status:</label>
-            <select class="form-control" id="status" name="status">
+        <div class="mb-4">
+            <label for="status" class="block text-gray-300 text-sm font-bold mb-2">Status:</label>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight
+            focus:outline-none focus:shadow-outline" id="status" name="status">
                 <option th:each="s : ${T(me.aceking.tasks.TaskStatus).values()}"
                         th:value="${s}"
                         th:text="${s.name().toLowerCase()}"
@@ -41,7 +47,8 @@
                 </option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Update Task</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+         focus:outline-none focus:shadow-outline">Update Task</button>
     </form>
 </div>
 </body>

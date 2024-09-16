@@ -3,76 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>TaskCan - Your Tasks</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <style>
-        /* Add custom styles here if needed */
-    </style>
+    <link rel="stylesheet" th:href="@{/main.css}">
 </head>
-<body>
+<body class="bg-gray-900 text-white font-sans">
 
-<div class="container mt-4">
-    <h1>Welcome to TaskCan!</h1>
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Welcome to TaskCan!</h1>
 
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <h2>Your Tasks</h2>
-            <table class="table table-striped">
+    <div class="mt-3">
+        <div>
+            <h2 class="text-2xl font-bold mb-2">Your Tasks</h2>
+            <table class="table-auto w-full">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Creator</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Due Date</th>
-                    <th>Actions</th>
+                <tr class="bg-gray-800 text-white">
+                    <th class="px-4 py-2">ID</th>
+                    <th class="px-4 py-2">Title</th>
+                    <th class="px-4 py-2">Creator</th>
+                    <th class="px-4 py-2">Description</th>
+                    <th class="px-4 py-2">Status</th>
+                    <th class="px-4 py-2">Priority</th>
+                    <th class="px-4 py-2">Due Date</th>
+                    <th class="px-4 py-2">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="task : ${tasks.getContent()}">
-                    <td th:text="${task.id}"></td>
-                    <td th:text="${task.title}"></td>
-                    <td th:text="${task.creator.username}"></td>
-                    <td th:text="${task.description}"></td>
-                    <td th:text="${task.status}"></td>
-                    <td th:text="${task.priority}"></td>
-                    <td th:text="${task.dueDate}"></td>
-                    <td>
-                        <a th:href="@{/tasks/id/{id}(id=${task.id})}" class="btn btn-sm btn-info">View</a>
-                        <a th:href="@{/tasks/{id}/edit(id=${task.id})}" class="btn btn-sm btn-warning">Edit</a>
-                        <form th:action="@{/tasks/{id}(id=${task.id})}" method="post" style="display: inline;">
+                <tr th:each="task : ${tasks.getContent()}" class="bg-gray-700">
+                    <td class="border px-4 py-2 text-white" th:text="${task.id}"></td>
+                    <td class="border px-4 py-2 text-white" th:text="${task.title}"></td>
+                    <td class="border px-4 py-2 text-white" th:text="${task.creator.username}"></td>
+                    <td class="border px-4 py-2 text-white" th:text="${task.description}"></td>
+                    <td class="border px-4 py-2 text-white" th:text="${task.status}"></td>
+                    <td class="border px-4 py-2 text-white" th:text="${task.priority}"></td>
+                    <td class="border px-4 py-2 text-white" th:text="${task.dueDate}"></td>
+                    <td class="border px-4 py-2 text-white">
+                        <a th:href="@{/tasks/id/{id}(id=${task.id})}"
+                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">View</a>
+                        <a th:href="@{/tasks/{id}/edit(id=${task.id})}"
+                           class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-2 rounded">Edit</a>
+                        <form th:action="@{/tasks/{id}(id=${task.id})}" method="post" class="inline-block">
                             <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button type="submit"
+                                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Delete
+                            </button>
                         </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li th:class="${tasks.first} ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" th:href="@{/tasks/userid/{userid}(userid=${userId}, page=0)}" aria-label="First">
-                            <span aria-hidden="true">&laquo;</span>
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination flex justify-center">
+                    <li th:class="${tasks.first} ? 'disabled' : ''">
+                        <a class="px-3 py-2 rounded-l border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
+                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=0)}" aria-label="First">
+                            &laquo;
                         </a>
                     </li>
-                    <li th:class="${tasks.hasPrevious()} ? 'page-item' : 'page-item disabled'">
-                        <a class="page-link" th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.number - 1})}" aria-label="Previous">
-                            <span aria-hidden="true">&lsaquo;</span>
+                    <li th:class="${tasks.hasPrevious()} ? '' : 'disabled'">
+                        <a class="px-3 py-2 border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
+                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.number - 1})}"
+                           aria-label="Previous">
+                            &lsaquo;
                         </a>
                     </li>
-                    <li th:each="i : ${#numbers.sequence(0, tasks.totalPages - 1)}" th:class="${tasks.number == i} ? 'page-item active' : 'page-item'">
-                        <a class="page-link" th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${i})}" th:text="${i + 1}"></a>
+                    <li th:each="i : ${#numbers.sequence(0, tasks.totalPages - 1)}"
+                        th:class="${tasks.number == i} ? 'active' : ''">
+                        <a class="px-3 py-2 border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
+                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${i})}" th:text="${i + 1}"></a>
                     </li>
-                    <li th:class="${tasks.hasNext()} ? 'page-item' : 'page-item disabled'">
-                        <a class="page-link" th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.number + 1})}" aria-label="Next">
-                            <span aria-hidden="true">&rsaquo;</span>
+                    <li th:class="${tasks.hasNext()} ? '' : 'disabled'">
+                        <a class="px-3 py-2 border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
+                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.number + 1})}"
+                           aria-label="Next">
+                            &rsaquo;
                         </a>
                     </li>
-                    <li th:class="${tasks.last} ? 'page-item disabled' : 'page-item'">
-                        <a class="page-link" th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.totalPages - 1})}" aria-label="Last">
-                            <span aria-hidden="true">&raquo;</span>
+                    <li th:class="${tasks.last} ? 'disabled' : ''">
+                        <a class="px-3 py-2 rounded-r border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
+                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.totalPages - 1})}"
+                           aria-label="Last">
+                            &raquo;
                         </a>
                     </li>
                 </ul>
@@ -80,9 +90,11 @@
         </div>
     </div>
 
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <a th:href="@{/tasks/new}" class="btn btn-primary">Create New Task</a>
+    <div class="mt-3">
+        <div>
+            <a th:href="@{/tasks/new}"
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
+                New Task</a>
         </div>
     </div>
 </div>

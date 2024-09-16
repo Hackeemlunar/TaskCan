@@ -2,41 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Task View</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <style>
-        body {
-            padding: 20px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .task-details {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        .task-details p {
-            margin-bottom: 10px;
-        }
-
-        .task-details strong {
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/main.css}">
 </head>
-<body>
-<div class="container">
-    <h1>Task Details</h1>
-    <div class="task-details">
-        <p><strong>ID:</strong> <span th:text="${task.id}"></span></p>
-        <p><strong>Title:</strong> <span th:text="${task.title}"></span></p>
-        <p><strong>Assignee:</strong> <span th:text="${task.creator().username}"></span></p>
-        <p><strong>Description:</strong> <span th:text="${task.description()}"></span></p>
-        <p><strong>Priority:</strong> <span th:text="${task.priority().name().toLowerCase()}"></span></p>
-        <p><strong>Status:</strong> <span th:text="${task.status()}"></span></p>
+<body class="bg-gray-900 text-white font-sans">
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Task Details</h1>
+    <div class="bg-gray-800 rounded-md p-6 shadow-md">
+        <p class="mb-2"><strong class="font-semibold">ID:</strong> <span th:text="${task.id}"></span></p>
+        <p class="mb-2"><strong class="font-semibold">Title:</strong> <span th:text="${task.title}"></span></p>
+        <p class="mb-2"><strong class="font-semibold">Assignee:</strong> <span th:text="${task.creator().username}"></span></p>
+        <p class="mb-2"><strong class="font-semibold">Description:</strong> <span th:text="${task.description()}"></span></p>
+        <p class="mb-2"><strong class="font-semibold">Priority:</strong> <span th:text="${task.priority().name().toLowerCase()}"></span></p>
+        <p class="mb-2"><strong class="font-semibold">Status:</strong> <span th:text="${task.status()}"></span></p>
     </div>
 </div>
 </body>
