@@ -1,1 +1,3 @@
 rootProject.name = 'TaskCan'
+include 'TaskServices'
+
