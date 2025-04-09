@@ -8,7 +8,7 @@
 <body class="bg-gray-900 text-white font-sans">
 <div class="container mx-auto p-4">
     <h1 class="text-3xl font-bold mb-4">Edit Task</h1>
-    <form th:action="@{/tasks/{id}/edit(id=${task.id})}" th:object="${task}" method="post">
+    <form id="editTaskForm" th:action="@{/tasks/{id}/edit(id=${task.id})}" th:object="${task}" method="post">
         <div class="mb-4">
             <label for="title" class="block text-gray-300 text-sm font-bold mb-2">Title:</label>
             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
@@ -47,9 +47,19 @@
                 </option>
             </select>
         </div>
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
-         focus:outline-none focus:shadow-outline">Update Task</button>
+        <button id="updateButton" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded
+         focus:outline-none focus:shadow-outline" disabled>Update Task</button>
     </form>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('editTaskForm');
+        const button = document.getElementById('updateButton');
+
+        form.addEventListener('input', function () {
+            button.disabled = false;
+        });
+    });
+</script>
 </body>
 </html>

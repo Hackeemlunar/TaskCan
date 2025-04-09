@@ -53,15 +53,15 @@
 
             <nav aria-label="Page navigation" class="mt-4">
                 <ul class="pagination flex justify-center">
-                    <li th:class="${tasks.first} ? 'disabled' : ''">
+                    <li th:class="${tasks.first} ? 'pointer-events-none opacity-50' : ''">
                         <a class="px-3 py-2 rounded-l border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
-                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=0)}" aria-label="First">
+                           th:href="@{/(page=0)}" aria-label="First">
                             &laquo;
                         </a>
                     </li>
-                    <li th:class="${tasks.hasPrevious()} ? '' : 'disabled'">
+                    <li th:class="${tasks.hasPrevious()} ? '' : 'pointer-events-none opacity-50'">
                         <a class="px-3 py-2 border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
-                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.number - 1})}"
+                           th:href="@{/(page=${tasks.number - 1}, userid=${userId})}"
                            aria-label="Previous">
                             &lsaquo;
                         </a>
@@ -69,18 +69,18 @@
                     <li th:each="i : ${#numbers.sequence(0, tasks.totalPages - 1)}"
                         th:class="${tasks.number == i} ? 'active' : ''">
                         <a class="px-3 py-2 border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
-                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${i})}" th:text="${i + 1}"></a>
+                           th:href="@{/(page=${i}, userid=${userId})}" th:text="${i + 1}"></a>
                     </li>
-                    <li th:class="${tasks.hasNext()} ? '' : 'disabled'">
+                    <li th:class="${tasks.hasNext()} ? '' : 'pointer-events-none opacity-50'">
                         <a class="px-3 py-2 border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
-                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.number + 1})}"
+                           th:href="@{/(page=${tasks.number + 1}, userid=${userId})}"
                            aria-label="Next">
                             &rsaquo;
                         </a>
                     </li>
-                    <li th:class="${tasks.last} ? 'disabled' : ''">
+                    <li th:class="${tasks.last} ? 'pointer-events-none opacity-50' : ''">
                         <a class="px-3 py-2 rounded-r border border-gray-700 bg-gray-800 text-white hover:bg-gray-600"
-                           th:href="@{/tasks/userid/{userid}(userid=${userId}, page=${tasks.totalPages - 1})}"
+                           th:href="@{/(page=${tasks.totalPages - 1}, userid=${userId})}"
                            aria-label="Last">
                             &raquo;
                         </a>
